@@ -1,4 +1,4 @@
-# System design — Instagram video downloader pipeline
+# Architecture — Instagram video downloader pipeline
 
 ## Problem context
 
