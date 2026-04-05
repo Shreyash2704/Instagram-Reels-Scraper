@@ -24,7 +24,7 @@ The pipeline is **synchronous** today (SQLAlchemy sync session, blocking Apify c
 - **Media** — `MEDIA_STORAGE=local` writes under `MEDIA_LOCAL_ROOT/{run_id}/`. `MEDIA_STORAGE=s3` downloads then uploads via **boto3**; payload includes `stored_url` like `s3://bucket/key`. Rows in `run_media_items` capture paths, sizes, and errors.
 - **Client** — Poll `GET /runs` and `GET /runs/{id}` (no WebSocket in this repo).
 
-See [docs/system-design.md](docs/system-design.md) for diagrams and failure modes.
+See [docs/system-design.md](docs/system-design.md) for diagrams and failure modes. For a **production-style** architecture (load balancer, Postgres, Redis, S3, scaling), see [docs/system-design-production.md](docs/system-design-production.md).
 
 ## Prerequisites
 

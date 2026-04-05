@@ -35,6 +35,10 @@ Prototype pipeline for Videoselz-style assessment: discover public Instagram vid
 7. **POST** JSON array to `DESTINATION_URL` (or skip if URL empty — log only).
 8. Worker sets `completed` or `failed`, stores short error message and optional payload summary.
 
+## Related
+
+- [system-design-production.md](./system-design-production.md) — production deployment diagram, Redis/S3/Postgres, and scaling.
+
 ## Failure modes
 
 | Failure | Behavior |
