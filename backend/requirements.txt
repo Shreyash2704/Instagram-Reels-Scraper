@@ -1,0 +1,12 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+sqlalchemy>=2.0.36
+pydantic-settings>=2.6.0
+httpx>=0.28.0
+apify-client>=1.8.0
+redis>=5.0.0
+# RQ 2.x imports a fork-only scheduler at import time; that breaks on Windows. Stay on 1.x for dev on Win + worker CLI.
+rq>=1.16.2,<2
+boto3>=1.35.0
+pytest>=8.3.0
+ruff>=0.8.0

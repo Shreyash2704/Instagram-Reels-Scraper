@@ -1,0 +1,18 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  # Example worker (uncomment after building local image or use host Python):
+  # worker:
+  #   build: ./backend
+  #   command: rq worker -u redis://redis:6379/0 pipeline
+  #   working_dir: /app
+  #   environment:
+  #     REDIS_URL: redis://redis:6379/0
+  #     APIFY_TOKEN: ${APIFY_TOKEN}
+  #   volumes:
+  #     - ./backend:/app
+  #   depends_on:
+  #     - redis
