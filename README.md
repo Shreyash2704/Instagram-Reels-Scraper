@@ -18,7 +18,7 @@ The pipeline is **synchronous** today (SQLAlchemy sync session, blocking Apify c
 
 ## Architecture (high level)
 
-- **FastAPI** — CRUD sources/runs, `POST /sources/{id}/run`, mock destination `POST /destination/mock`.
+- **FastAPI** — CRUD sources/runs, `POST /sources/{id}/run`, optional POST of results to `DESTINATION_URL`.
 - **Job execution** — If `REDIS_URL` is set, the API **enqueues** `process_run(run_id)` on Redis/RQ. If `REDIS_URL` is empty, **FastAPI `BackgroundTasks`** runs the same function in-process (dev convenience).
 - **Worker** — `rq worker` pulls jobs, runs `execute_run` (Apify → normalize → optional media download → dedupe → destination POST → update `Run`).
 - **Media** — `MEDIA_STORAGE=local` writes under `MEDIA_LOCAL_ROOT/{run_id}/`. `MEDIA_STORAGE=s3` downloads then uploads via **boto3**; payload includes `stored_url` like `s3://bucket/key`. Rows in `run_media_items` capture paths, sizes, and errors.
@@ -43,11 +43,7 @@ pip install -r requirements.txt
 cp ../.env.example ../.env   # or place .env in backend/ — see pydantic env_file
 ```
 
-Set at least `APIFY_TOKEN`. For the mock destination on the same app:
-
-```env
-DESTINATION_URL=http://127.0.0.1:8000/destination/mock
-```
+Set at least `APIFY_TOKEN`. Optionally set `DESTINATION_URL` to an HTTPS endpoint that accepts a JSON array for each completed run; leave it unset or empty to skip that POST.
 
 ### Run API
 
@@ -111,7 +107,6 @@ If `REDIS_URL` is **unset**, you do **not** need a worker; the API process runs 
 - `POST /sources/{id}/run` — returns `{ "run_id", "status" }`
 - `GET /runs`, `GET /runs/{id}` (optional `?source_id=` on list)
 - `GET /proxy/cdn-image?url=...` — fetches an image from allowlisted Meta CDN hosts (`*.cdninstagram.com`, `*.fbcdn.net`, `*.instagram.com`) for UI thumbnails when the browser blocks direct `<img>` loads
-- `POST /destination/mock` — test receiver (JSON array)
 
 ## Cron example
 

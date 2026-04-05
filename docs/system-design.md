@@ -2,7 +2,7 @@
 
 ## Problem context
 
-Prototype pipeline for Videoselz-style assessment: discover public Instagram videos via Apify, normalize metadata and CDN URLs, persist runs in SQLite, and deliver a JSON payload to a configurable destination (mock or real). Operators use a Vite SPA; scheduled jobs call the API (cron/CI).
+Prototype pipeline for Videoselz-style assessment: discover public Instagram videos via Apify, normalize metadata and CDN URLs, persist runs in SQLite, and optionally deliver a JSON payload to a configurable webhook URL. Operators use a Vite SPA; scheduled jobs call the API (cron/CI).
 
 ## Components
 
@@ -20,7 +20,7 @@ Prototype pipeline for Videoselz-style assessment: discover public Instagram vid
 
 - **Secrets:** `APIFY_TOKEN` only on the server; never exposed to the browser.
 - **Public IG only:** No Instagram login; private or restricted profiles may return empty or partial data.
-- **Destination:** Configured URL; prototype assumes trusted network (mock).
+- **Destination:** Optional `DESTINATION_URL`; empty skips POST; otherwise trusted webhook.
 
 ## Architecture and Data flow (single run)
 

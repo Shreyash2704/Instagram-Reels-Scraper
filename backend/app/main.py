@@ -6,7 +6,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from app.api.routes_destination import router as destination_router
 from app.api.routes_proxy_image import router as proxy_image_router
 from app.api.routes_runs import router as runs_router
 from app.api.routes_sources import router as sources_router
@@ -36,7 +35,6 @@ app.add_middleware(
 
 app.include_router(sources_router)
 app.include_router(runs_router)
-app.include_router(destination_router)
 app.include_router(proxy_image_router)
 
 _media_root = Path(settings.media_local_root).resolve()
