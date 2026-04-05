@@ -65,8 +65,3 @@ Prototype pipeline for Videoselz-style assessment: discover public Instagram vid
 1. Run shows `failed` in UI and API.
 2. Check logs for `apify`, `normalize`, `destination` prefixes.
 3. Fix source or config; trigger new run.
-
-## Related documents
-
-- [coding-standards.md](./coding-standards.md)
-- [README.md](../README.md) — setup, Apify choice, cron example
